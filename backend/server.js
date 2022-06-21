@@ -1,22 +1,19 @@
 const express = require("express");
 const dotenv = require("dotenv");
-const axios = require("axios");
 
-const server = express();
+const {
+  errorMiddleware,
+  notFoundMiddleware,
+} = require("./middleware/customErrorMiddleware");
+const { postData } = require("./data/data");
+const router = require("./routers/routes");
 
 dotenv.config();
+const server = express();
 
 server.use(express.json());
-
-server.get("/", async (req, res) => {
-  const fetchComments = await axios.get(
-    "https://jsonplaceholder.typicode.com/posts"
-  );
-
-  console.log(fetchComments.data);
-
-  res.json(fetchComments.data);
-});
+server.use(router); // stores all routes
+server.use([notFoundMiddleware, errorMiddleware]); // applying custom middlewares
 
 const PORT = process.env.SERVER_PORT;
 
