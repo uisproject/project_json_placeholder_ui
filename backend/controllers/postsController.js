@@ -9,7 +9,7 @@ const getPosts = asyncHandler(async (req, res) => {
 
   const result = pagination(limit, page, postData);
 
-  // combine with userData
+  // combine with userData and commentData
   const combinedWithUser = result.data.map((data) => {
     const findUser = userData.find((user) => user.id === data.userId);
     const comments = commentData.filter(
