@@ -22,7 +22,9 @@ const MenuLayout = () => {
           setCollapsed(!collapsed);
         }}
       />
-      <Menu items={menuItems} onClick={menuItemsHandler} />
+      <nav>
+        <Menu items={menuItems} onClick={menuItemsHandler} />
+      </nav>
     </Sider>
   );
 };
