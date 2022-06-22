@@ -1,8 +1,8 @@
 import React from "react";
-import { Layout, Button } from "antd";
-import { LoginOutlined } from "@ant-design/icons";
+import { Layout } from "antd";
 
 import MenuLayout from "./MenuLayout";
+import LoginButton from "../components/Generals/LoginButton";
 
 const { Footer, Sider, Content, Header } = Layout;
 
@@ -11,21 +11,7 @@ const MainLayout = ({ children }) => {
     <>
       <Layout className="min-h-[100vh]">
         <Header className="bg-[white] flex justify-end items-center mb-3">
-          <Button
-            block={true}
-            type="text"
-            className="inline-flex items-center cursor-pointer p-3"
-          >
-            <LoginOutlined className="text-[2em] " />
-            <span
-              className="font-bold"
-              style={{
-                userSelect: "none",
-              }}
-            >
-              Login
-            </span>
-          </Button>
+          <LoginButton />
         </Header>
         <Layout>
           <MenuLayout />
