@@ -1,14 +1,38 @@
 const asyncHandler = require("express-async-handler");
-const { postData } = require("../data/data");
+const _ = require("lodash");
+
+const { postData, userData } = require("../data/data");
 const { pagination } = require("../utils/pagination");
 
 const getPosts = asyncHandler(async (req, res) => {
   const { limit, page } = req.query;
+
   const result = pagination(limit, page, postData);
+
+  // combine with userData
+  const combinedWithUser = result.data
+    .map((data) => {
+      const findUser = userData.find((user) => user.id === data.userId);
+      findUser.userId = findUser.id;
+
+      const post = {
+        postId: data.id,
+        title: data.title,
+        body: data.body,
+      };
+
+      return { ...findUser, ...post };
+    })
+    .map((item) => {
+      delete item.id;
+      delete item.address.geo;
+      return item;
+    });
 
   res.status(200).json({
     success: true,
     ...result,
+    data: [...combinedWithUser],
   });
 });
 
