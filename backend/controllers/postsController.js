@@ -1,7 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const _ = require("lodash");
 
-const { postData, userData } = require("../data/data");
+const { postData, userData, commentData } = require("../data/data");
 const { pagination } = require("../utils/pagination");
 
 const getPosts = asyncHandler(async (req, res) => {
@@ -10,24 +10,26 @@ const getPosts = asyncHandler(async (req, res) => {
   const result = pagination(limit, page, postData);
 
   // combine with userData
-  const combinedWithUser = result.data
-    .map((data) => {
-      const findUser = userData.find((user) => user.id === data.userId);
-      findUser.userId = findUser.id;
+  const combinedWithUser = result.data.map((data) => {
+    const findUser = userData.find((user) => user.id === data.userId);
+    const comments = commentData.filter(
+      (comment) => comment.postId === data.id
+    );
 
-      const post = {
-        postId: data.id,
-        title: data.title,
-        body: data.body,
-      };
+    const post = {
+      postId: data.id,
+      title: data.title,
+      body: data.body,
+    };
 
-      return { ...findUser, ...post };
-    })
-    .map((item) => {
-      delete item.id;
-      delete item.address.geo;
-      return item;
-    });
+    const user = {
+      userId: findUser.id,
+      email: findUser.email,
+      username: findUser.username,
+    };
+
+    return { ...post, ...user, comments };
+  });
 
   res.status(200).json({
     success: true,
