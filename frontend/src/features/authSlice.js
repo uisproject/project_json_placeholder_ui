@@ -46,7 +46,7 @@ const authSlice = createSlice({
 });
 
 export const UseSelectAuth = () => {
-  const state = useSelector((state) => state);
+  const state = useSelector((state) => state.authAPI);
   return state;
 };
 

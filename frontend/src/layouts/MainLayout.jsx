@@ -3,15 +3,19 @@ import { Layout } from "antd";
 
 import MenuLayout from "./MenuLayout";
 import LoginButton from "../components/Auth/LoginButton";
+import { UseSelectAuth } from "../features/authSlice";
+import Logged from "../components/Auth/Logged";
 
 const { Footer, Content, Header } = Layout;
 
 const MainLayout = ({ children }) => {
+  const { isLogged } = UseSelectAuth();
+
   return (
     <>
       <Layout className="min-h-[100vh]">
         <Header className="bg-[white] flex justify-end items-center mb-3">
-          <LoginButton />
+          {isLogged ? <Logged /> : <LoginButton />}
         </Header>
         <Layout>
           <MenuLayout />
