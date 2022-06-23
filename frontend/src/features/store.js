@@ -5,13 +5,13 @@ import authReducer from "./authSlice";
 import getPostAPIReducer from "./getPostSliceAPI";
 
 const logger = createLogger();
-const middleware = [];
+const middleware = [logger];
 
 const store = configureStore({
   middleware: getDefaultMiddleware().concat([...middleware]),
-  devTools: false,
+  devTools: true,
   reducer: {
-    auth: authReducer,
+    authAPI: authReducer,
     getPostAPI: getPostAPIReducer,
   },
 });

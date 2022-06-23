@@ -2,7 +2,10 @@ import React, { useState, useRef, useEffect } from "react";
 import { Card, Skeleton } from "antd";
 import { useDispatch } from "react-redux";
 
-import { getPostAPI, UseSelectGetPosts } from "../../features/getPostSliceAPI";
+import {
+  getPostService,
+  UseSelectGetPosts,
+} from "../../features/getPostSliceAPI";
 import SinglePostCard from "./SinglePostCard";
 
 const PostCard = () => {
@@ -14,7 +17,7 @@ const PostCard = () => {
   const { Meta } = Card;
 
   useEffect(() => {
-    dispatch(getPostAPI({ limit: 10, page }));
+    dispatch(getPostService({ limit: 10, page }));
   }, [dispatch, isLoading]);
 
   return (

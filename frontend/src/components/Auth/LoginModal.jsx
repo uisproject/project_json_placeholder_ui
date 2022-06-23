@@ -1,9 +1,12 @@
 import React from "react";
 import { Form, Input, Button } from "antd";
+import { useDispatch } from "react-redux";
+import { loginService } from "../../features/authSlice";
 
 const { useForm } = Form;
 
 const LoginModal = () => {
+  const dispatch = useDispatch();
   const [form] = useForm();
   const initialState = {
     username: "",
@@ -17,6 +20,7 @@ const LoginModal = () => {
       initialValues={initialState}
       onFinish={() => {
         const body = form.getFieldsValue();
+        dispatch(loginService(body));
       }}
     >
       <Form.Item
