@@ -9,32 +9,22 @@ const getPosts = asyncHandler(async (req, res) => {
 
   const result = pagination(limit, page, postData);
 
-  // combine with userData and commentData
-  const combinedWithUser = result.data.map((data) => {
-    const findUser = userData.find((user) => user.id === data.userId);
-    const comments = commentData.filter(
-      (comment) => comment.postId === data.id
+  // Integrate data with another data
+  const combinedData = result.data.map((item) => {
+    const user = userData.find((user) => user.userId === item.userId);
+    const comment = commentData.filter(
+      (comment) => comment.postId === item.postId
     );
 
-    const post = {
-      postId: data.id,
-      title: data.title,
-      body: data.body,
-    };
-
-    const user = {
-      userId: findUser.id,
-      email: findUser.email,
-      username: findUser.username,
-    };
-
-    return { ...post, ...user, comments };
+    return { ...item, ...user, comments: comment };
   });
+
+  console.log(combinedData);
 
   res.status(200).json({
     success: true,
     ...result,
-    data: [...combinedWithUser],
+    ...{ data: combinedData },
   });
 });
 

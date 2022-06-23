@@ -8,6 +8,15 @@ const photoData = [];
 const todoData = [];
 const userData = [];
 
+const replaceIdProp = (propName = "", data = []) => {
+  data.forEach((item) => {
+    item[propName] = item.id;
+    delete item.id;
+  });
+
+  return data;
+};
+
 const fetchData = async () => {
   const posts = axios.get(`${JSON_PLACEHOLDER_BASE_URI}/posts`);
   const comments = axios.get(`${JSON_PLACEHOLDER_BASE_URI}/comments`);
@@ -25,12 +34,12 @@ const fetchData = async () => {
       const todos = response[4].data;
       const users = response[5].data;
 
-      postData.push(...posts);
-      commentData.push(...comments);
-      albumData.push(...albums);
-      photoData.push(...photos);
-      todoData.push(...todos);
-      userData.push(...users);
+      postData.push(...replaceIdProp("postId", posts));
+      commentData.push(...replaceIdProp("commentId", comments));
+      albumData.push(...replaceIdProp("albumId", albums));
+      photoData.push(...replaceIdProp("photoId", photos));
+      todoData.push(...replaceIdProp("todoId", todos));
+      userData.push(...replaceIdProp("userId", users));
     })
   );
 };
