@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchGetPost } from "../services/postServices";
+import { getPostService } from "../services/postServices";
 import { useSelector } from "react-redux";
 
 const initialState = {
@@ -7,7 +7,7 @@ const initialState = {
   data: [],
 };
 
-export const getPostAPI = createAsyncThunk("api/getPost", fetchGetPost);
+export const getPostAPI = createAsyncThunk("api/getPost", getPostService);
 
 const getPostApiSlice = createSlice({
   name: "api/getPost",
