@@ -1,4 +1,4 @@
-import { publicInstance } from "./api";
+import { publicInstance } from "../api/api";
 
 export const getPostService = async (action, thunkAPI) => {
   const { limit, page } = action;
