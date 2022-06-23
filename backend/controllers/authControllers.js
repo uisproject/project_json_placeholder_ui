@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const jwt = require("jsonwebtoken");
 const { generateToken, refreshToken } = require("../utils/generateToken");
+const { userData } = require("../data/data");
 
 let storedRefreshToken = []; // alternative to store refresh token
 
@@ -8,7 +9,10 @@ const authUser = asyncHandler(async (req, res) => {
   const { username, password } = req.body;
 
   // check if the user is validated
-  if (username !== "admin" && password !== "admin") {
+  if (
+    !userData.find((user) => user.username === username) ||
+    password !== "admin"
+  ) {
     res.status(401);
     throw new Error("Username or Password is invalid");
   }
@@ -17,7 +21,7 @@ const authUser = asyncHandler(async (req, res) => {
   storedRefreshToken.push(getRefreshToken);
 
   return res.status(200).json({
-    username: "admin",
+    userData: userData.find((user) => user.username === username),
     tokenType: "Bearer",
     accessToken: generateToken(username),
     refreshToken: getRefreshToken,
