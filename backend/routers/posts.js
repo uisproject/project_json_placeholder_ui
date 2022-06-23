@@ -1,7 +1,7 @@
 const express = require("express");
 const {
   getPosts,
-  getDetailPost,
+  getSinglePost,
   createPost,
   updatePost,
   deletePost,
@@ -13,7 +13,7 @@ const router = express.Router();
 // v1
 
 router.get("/v1/posts", getPosts);
-router.get("/v1/posts/:id", getDetailPost);
+router.get("/v1/posts/:id", getSinglePost);
 
 // v2
 router.route("/v2/posts").post(secureAPI, createPost);

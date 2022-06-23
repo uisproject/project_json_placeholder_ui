@@ -38,7 +38,7 @@ const getPosts = asyncHandler(async (req, res) => {
   });
 });
 
-const getDetailPost = asyncHandler(async (req, res) => {
+const getSinglePost = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const findData = postData.find((data) => data.id === Number(id));
   const result = pagination(1, 1, [findData]);
@@ -117,7 +117,7 @@ const deletePost = asyncHandler(async (req, res) => {
 
 module.exports = {
   getPosts,
-  getDetailPost,
+  getSinglePost,
   createPost,
   updatePost,
   deletePost,
