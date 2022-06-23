@@ -1,20 +1,20 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
-import { setupListeners } from "@reduxjs/toolkit/dist/query";
+import { createLogger } from "redux-logger";
 
-import { postsAPI } from "../api/api";
-import userAuthReducer from "./userAuthSlice";
+import authReducer from "./authSlice";
+import getPostAPIReducer from "./getPostSliceAPI";
 
-const apiMiddleware = [postsAPI.middleware];
+const logger = createLogger();
+const middleware = [];
 
 const store = configureStore({
-  middleware: getDefaultMiddleware().concat([...apiMiddleware]),
+  middleware: getDefaultMiddleware().concat([...middleware]),
+  devTools: false,
   reducer: {
-    userAuth: userAuthReducer,
+    auth: authReducer,
     // api reducer
-    [postsAPI.reducerPath]: postsAPI.reducer,
+    getPostAPI: getPostAPIReducer,
   },
 });
-
-setupListeners(store.dispatch);
 
 export default store;

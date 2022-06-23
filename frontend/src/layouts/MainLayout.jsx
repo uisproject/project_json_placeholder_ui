@@ -2,9 +2,9 @@ import React from "react";
 import { Layout } from "antd";
 
 import MenuLayout from "./MenuLayout";
-import LoginButton from "../components/Generals/LoginButton";
+import LoginButton from "../components/Auth/LoginButton";
 
-const { Footer, Sider, Content, Header } = Layout;
+const { Footer, Content, Header } = Layout;
 
 const MainLayout = ({ children }) => {
   return (

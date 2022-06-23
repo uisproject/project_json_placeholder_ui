@@ -1,23 +1,26 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Card, Skeleton } from "antd";
+import { useDispatch } from "react-redux";
 
-import { useGetPostsQuery } from "../../api/api";
+import { getPostAPI, UseSelectGetPosts } from "../../features/getPostSliceAPI";
 import SinglePostCard from "./SinglePostCard";
 
 const PostCard = () => {
+  const dispatch = useDispatch();
+  const { isLoading, data } = UseSelectGetPosts();
   const [page, setPage] = useState(1);
   const skeletonItems = useRef(Array.from([1, 2]));
-  let { currentData, isError, isLoading } = useGetPostsQuery({
-    page: page,
-  });
+
   const { Meta } = Card;
+
+  useEffect(() => {
+    dispatch(getPostAPI({ limit: 10, page }));
+  }, [dispatch, isLoading]);
 
   return (
     <>
       {isLoading ||
-        currentData.data.map((item) => (
-          <SinglePostCard key={item.postId} {...item} />
-        ))}
+        data.data.map((item) => <SinglePostCard key={item.postId} {...item} />)}
 
       {isLoading &&
         skeletonItems.current.map((_, idx) => (
