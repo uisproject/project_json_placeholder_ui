@@ -5,7 +5,7 @@ import { loginService } from "../../features/authSlice";
 
 const { useForm } = Form;
 
-const LoginModal = () => {
+const LoginForm = () => {
   const dispatch = useDispatch();
   const [form] = useForm();
   const initialState = {
@@ -52,4 +52,4 @@ const LoginModal = () => {
   );
 };
 
-export default LoginModal;
+export default LoginForm;

@@ -1,10 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { message } from "antd";
 import { useSelector } from "react-redux";
 import { publicInstance } from "../api/api";
 
-const getUserInfoFromLocalStorage = JSON.parse(
-  window.localStorage.getItem("userInfo")
-);
+const getUserInfoFromLocalStorage = window.localStorage.getItem("userInfo")
+  ? JSON.parse(window.localStorage.getItem("userInfo"))
+  : false;
 
 const initialState = {
   accessToken: getUserInfoFromLocalStorage.accessToken || "",
@@ -16,17 +17,21 @@ const initialState = {
 export const loginService = createAsyncThunk(
   "api/login",
   async (action, thunkAPI) => {
-    const { data } = await publicInstance.post(`v1/token`, action);
+    try {
+      const res = await publicInstance.post(`v1/token`, action);
 
-    const payload = {
-      accessToken: `Bearer ${data.accessToken}`,
-      refreshToken: data.refreshToken,
-      username: data.username,
-      isLogged: true,
-    };
+      const payload = {
+        accessToken: `Bearer ${res?.data?.accessToken}`,
+        refreshToken: res?.data?.refreshToken,
+        username: res?.data?.username,
+        isLogged: true,
+      };
 
-    window.localStorage.setItem("userInfo", JSON.stringify(payload));
-    return payload;
+      window.localStorage.setItem("userInfo", JSON.stringify(payload));
+      return payload;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.response.data);
+    }
   }
 );
 
@@ -40,8 +45,12 @@ const authSlice = createSlice({
       state.refreshToken = refreshToken;
       state.username = username;
       state.isLogged = true;
+      message.success("Login Success!");
     },
-    [loginService.rejected]: () => {},
+    [loginService.rejected]: (state, { payload }) => {
+      state.isError = payload.message;
+      message.error(payload.message);
+    },
   },
 });
 

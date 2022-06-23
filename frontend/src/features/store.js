@@ -8,7 +8,7 @@ const logger = createLogger();
 const middleware = [logger];
 
 const store = configureStore({
-  middleware: getDefaultMiddleware().concat([...middleware]),
+  // middleware: getDefaultMiddleware().concat([...middleware]),
   devTools: true,
   reducer: {
     authAPI: authReducer,

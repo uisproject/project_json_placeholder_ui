@@ -2,9 +2,7 @@ import React from "react";
 import { Layout } from "antd";
 
 import MenuLayout from "./MenuLayout";
-import LoginButton from "../components/Auth/LoginButton";
 import { UseSelectAuth } from "../features/authSlice";
-import Logged from "../components/Auth/Logged";
 
 const { Footer, Content, Header } = Layout;
 
@@ -14,9 +12,7 @@ const MainLayout = ({ children }) => {
   return (
     <>
       <Layout className="min-h-[100vh]">
-        <Header className="bg-[white] flex justify-end items-center mb-3">
-          {isLogged ? <Logged /> : <LoginButton />}
-        </Header>
+        <Header className="bg-[white] flex justify-end items-center mb-3"></Header>
         <Layout>
           <MenuLayout />
           <Content>{children}</Content>

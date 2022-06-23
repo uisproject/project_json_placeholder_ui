@@ -37,7 +37,7 @@ const SinglePostCard = ({ body, email, title, username, comments }) => {
         ) : null}
 
         {comments.slice(0, totalComments).map((comment) => (
-          <Comment key={comment.id} {...comment} />
+          <Comment key={comment.commentId} {...comment} />
         ))}
       </Card>
     </>
