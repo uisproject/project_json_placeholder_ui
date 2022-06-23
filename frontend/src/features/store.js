@@ -12,7 +12,6 @@ const store = configureStore({
   devTools: false,
   reducer: {
     auth: authReducer,
-    // api reducer
     getPostAPI: getPostAPIReducer,
   },
 });
