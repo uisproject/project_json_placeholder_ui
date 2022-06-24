@@ -10,8 +10,6 @@ const { Footer, Content, Header } = Layout;
 const MainLayout = ({ children }) => {
   const { userData } = UseSelectAuth();
 
-  console.log(useSelector((state) => state));
-
   return (
     <>
       <Layout className="min-h-[100vh]">

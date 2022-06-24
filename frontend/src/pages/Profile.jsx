@@ -1,21 +1,18 @@
 import React from "react";
-import CreatePost from "../components/Posts/CreatePost";
 
-import PostCard from "../components/Posts/PostCard";
 import Container from "../layouts/Container";
 import MainLayout from "../layouts/MainLayout";
 
-const PostPage = () => {
+const Profile = () => {
   return (
     <>
       <MainLayout>
         <Container>
-          <CreatePost />
-          <PostCard />
+          <h1>Hello World</h1>
         </Container>
       </MainLayout>
     </>
   );
 };
 
-export default PostPage;
+export default Profile;
