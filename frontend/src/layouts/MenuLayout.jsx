@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { RightCircleFilled } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import { useNavigate } from "react-router-dom";
-
 import { menuItems } from "../utils/menuItems";
 
 const { Sider } = Layout;

@@ -19,8 +19,6 @@ const getPosts = asyncHandler(async (req, res) => {
     return { ...item, ...user, comments: comment };
   });
 
-  console.log(combinedData);
-
   res.status(200).json({
     success: true,
     ...result,

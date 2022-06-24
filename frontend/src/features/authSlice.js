@@ -10,7 +10,7 @@ const getUserInfoFromLocalStorage = window.localStorage.getItem("userInfo")
 const initialState = {
   accessToken: getUserInfoFromLocalStorage.accessToken || "",
   refreshToken: getUserInfoFromLocalStorage.refreshToken || "",
-  username: getUserInfoFromLocalStorage.username || "",
+  userData: getUserInfoFromLocalStorage.userData || {},
   isLogged: getUserInfoFromLocalStorage.isLogged || false,
 };
 
@@ -23,7 +23,7 @@ export const loginService = createAsyncThunk(
       const payload = {
         accessToken: `Bearer ${res?.data?.accessToken}`,
         refreshToken: res?.data?.refreshToken,
-        username: res?.data?.username,
+        userData: res?.data?.userData,
         isLogged: true,
       };
 
@@ -38,12 +38,21 @@ export const loginService = createAsyncThunk(
 const authSlice = createSlice({
   name: "api/login",
   initialState,
+  reducers: {
+    logoutHandler: (state) => {
+      window.localStorage.removeItem("userInfo");
+      state.accessToken = "";
+      state.isLogged = false;
+      state.refreshToken = "";
+      state.userData = {};
+    },
+  },
   extraReducers: {
     [loginService.fulfilled]: (state, { payload }) => {
-      const { accessToken, refreshToken, username } = payload;
+      const { accessToken, refreshToken, userData } = payload;
       state.accessToken = `Bearer ${accessToken}`;
       state.refreshToken = refreshToken;
-      state.username = username;
+      state.userData = userData;
       state.isLogged = true;
       message.success("Login Success!");
     },
@@ -58,5 +67,7 @@ export const UseSelectAuth = () => {
   const state = useSelector((state) => state.authAPI);
   return state;
 };
+
+export const { logoutHandler } = authSlice.actions;
 
 export default authSlice.reducer;
