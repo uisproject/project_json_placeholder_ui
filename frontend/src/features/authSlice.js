@@ -55,6 +55,7 @@ const authSlice = createSlice({
       state.userData = userData;
       state.isLogged = true;
       message.success("Login Success!");
+      window.location.reload();
     },
     [loginService.rejected]: (state, { payload }) => {
       state.isError = payload.message;

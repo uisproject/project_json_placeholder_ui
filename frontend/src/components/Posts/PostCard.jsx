@@ -7,23 +7,27 @@ import {
   UseSelectGetPosts,
 } from "../../features/getPostSliceAPI";
 import SinglePostCard from "./SinglePostCard";
+import UseAxiosPrivate from "../../hooks/UseAxiosPrivate";
 
 const PostCard = () => {
   const dispatch = useDispatch();
-  const { isLoading, data } = UseSelectGetPosts();
+  const instance = UseAxiosPrivate();
+  const { isLoading, data, isError } = UseSelectGetPosts();
   const [page, setPage] = useState(1);
   const skeletonItems = useRef(Array.from([1, 2]));
 
   const { Meta } = Card;
 
   useEffect(() => {
-    dispatch(getPostService({ limit: 10, page }));
+    dispatch(getPostService({ instance: instance, limit: 10, page }));
   }, [dispatch, isLoading]);
 
   return (
     <>
       {isLoading ||
-        data.data.map((item) => <SinglePostCard key={item.postId} {...item} />)}
+        data?.data?.map((item) => (
+          <SinglePostCard key={item.postId} {...item} />
+        ))}
 
       {isLoading &&
         skeletonItems.current.map((_, idx) => (

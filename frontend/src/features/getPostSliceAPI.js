@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { message } from "antd";
 import { useSelector } from "react-redux";
-import { publicInstance } from "../api/api";
 
 const initialState = {
   isLoading: true,
@@ -10,11 +10,15 @@ const initialState = {
 export const getPostService = createAsyncThunk(
   "api/getPost",
   async (action, thunkAPI) => {
-    const { limit, page } = action;
-    const { data } = await publicInstance.get(
-      `v1/posts?limit=${limit}&page=${page}`
-    );
-    return data;
+    const { instance, limit, page } = action;
+    try {
+      const { data } = await instance.get(
+        `v2/posts?limit=${limit}&page=${page}`
+      );
+      return data;
+    } catch (e) {
+      return thunkAPI.rejectWithValue(e.response.data);
+    }
   }
 );
 
@@ -26,7 +30,11 @@ const getPostApiSlice = createSlice({
       state.isLoading = false;
       state.data = payload;
     },
-    [getPostService.rejected]: () => {},
+    [getPostService.rejected]: (state, { payload }) => {
+      state.isLoading = true;
+      state.data = [];
+      message.error(payload.message);
+    },
   },
 });
 

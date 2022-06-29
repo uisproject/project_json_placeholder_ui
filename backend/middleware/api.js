@@ -1,5 +1,19 @@
+const jwt = require("jsonwebtoken");
+
 const secureAPI = (req, res, next) => {
-  console.log("is checking");
+  const { authorization } = req.headers;
+  const token = authorization.split(" ")[1];
+
+  try {
+    jwt.verify(token, process.env.JWT_TOKEN);
+  } catch (e) {
+    if (e.message === "jwt expired") {
+      res.status(403);
+      return next(new Error("Your session has been expired please relogin"));
+    }
+    res.status(500);
+    return next(new Error("Something is wrong, please relogin"));
+  }
 
   next();
 };

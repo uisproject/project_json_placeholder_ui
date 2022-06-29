@@ -1,5 +1,4 @@
 const asyncHandler = require("express-async-handler");
-const _ = require("lodash");
 
 const { postData, userData, commentData } = require("../data/data");
 const { pagination } = require("../utils/pagination");

@@ -1,23 +1,19 @@
-import React from "react";
-import {
-  BrowserRouter as Router,
-  useRoutes,
-  Navigate,
-  Outlet,
-} from "react-router-dom";
+import React, { useEffect } from "react";
+import { BrowserRouter as Router, useRoutes, Navigate } from "react-router-dom";
 import { UseSelectAuth } from "./features/authSlice";
+import UseAuth from "./hooks/UseAuth";
 import LoginPage from "./pages/LoginPage";
 import PostPage from "./pages/PostPage";
 import ProfilePage from "./pages/ProfilePage";
 import { menuItems } from "./utils/menuItems";
 
 const AppRoutes = () => {
-  const { isLogged } = UseSelectAuth();
+  const { isLogged, accessToken } = UseSelectAuth();
 
   return useRoutes([
     {
       path: "/",
-      element: isLogged ? <Outlet /> : <Navigate to={"/login"} />,
+      element: isLogged ? <UseAuth /> : <Navigate to={"/login"} />,
       children: [
         { path: `${menuItems[0].key}`, element: <PostPage /> },
         { path: `${menuItems[1].key}`, element: <ProfilePage /> },

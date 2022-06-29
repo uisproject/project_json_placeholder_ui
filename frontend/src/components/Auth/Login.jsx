@@ -5,13 +5,15 @@ import { UseSelectAuth } from "../../features/authSlice";
 import LoginForm from "./LoginForm";
 
 const Login = () => {
-  const { isLogged, isError } = UseSelectAuth();
+  const { isLogged } = UseSelectAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!isLogged) return;
 
-    navigate("/");
+    if (isLogged) {
+      navigate("/");
+    }
   }, [isLogged]);
 
   return (
