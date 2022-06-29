@@ -11,7 +11,7 @@ const Login = () => {
   useEffect(() => {
     if (!isLogged) return;
 
-    navigate("/posts");
+    navigate("/");
   }, [isLogged]);
 
   return (

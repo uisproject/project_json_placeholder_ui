@@ -1,6 +1,10 @@
 export const menuItems = [
   {
-    key: "/posts",
+    key: "/",
     label: "Posts",
+  },
+  {
+    key: "/profile",
+    label: "Profile",
   },
 ];

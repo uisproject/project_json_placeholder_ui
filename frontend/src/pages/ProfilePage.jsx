@@ -3,16 +3,14 @@ import React from "react";
 import Container from "../layouts/Container";
 import MainLayout from "../layouts/MainLayout";
 
-const Profile = () => {
+const ProfilePage = () => {
   return (
     <>
       <MainLayout>
-        <Container>
-          <h1>Hello World</h1>
-        </Container>
+        <Container></Container>
       </MainLayout>
     </>
   );
 };
 
-export default Profile;
+export default ProfilePage;
