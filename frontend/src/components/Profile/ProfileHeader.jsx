@@ -19,7 +19,7 @@ const ProfileHeader = () => {
   return (
     <>
       {!isLoading ? (
-        <Card className="my-3 max-w-[1000px] rounded-xl">
+        <Card className="my-3 min-w-[90%] mx-auto inline-block rounded-xl">
           <h1 className="font-bold text-xl">{data?.data?.userInfo?.email}</h1>
           <p>
             Hi!, my name is <strong>{data?.data?.userInfo?.name}</strong>.

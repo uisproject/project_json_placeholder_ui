@@ -14,32 +14,30 @@ const SinglePostCard = ({ body, email, title, username, comments }) => {
 
   return (
     <>
-      <Card
-        title={username}
-        extra={email}
-        className="my-3 max-w-[1000px] rounded-xl"
-      >
-        <Meta title={title} className="text-[32px] pb-3" />
-        <p>{body}</p>
+      <div className="w-[90%] mx-auto">
+        <Card title={username} extra={email} className="my-3 rounded-xl">
+          <Meta title={title} className="text-[32px] pb-3" />
+          <p>{body}</p>
 
-        <Divider>Comments</Divider>
+          <Divider>Comments</Divider>
 
-        {totalComments <= comments.length ? (
-          <p
-            className="cursor-pointer inline-block"
-            style={{
-              userSelect: "none",
-            }}
-            onClick={viewMoreCommentsHandler}
-          >
-            View {comments.length - totalComments} more comments
-          </p>
-        ) : null}
+          {totalComments <= comments.length ? (
+            <p
+              className="cursor-pointer inline-block"
+              style={{
+                userSelect: "none",
+              }}
+              onClick={viewMoreCommentsHandler}
+            >
+              View {comments.length - totalComments} more comments
+            </p>
+          ) : null}
 
-        {comments.slice(0, totalComments).map((comment) => (
-          <Comment key={comment.commentId} {...comment} />
-        ))}
-      </Card>
+          {comments.slice(0, totalComments).map((comment) => (
+            <Comment key={comment.commentId} {...comment} />
+          ))}
+        </Card>
+      </div>
     </>
   );
 };

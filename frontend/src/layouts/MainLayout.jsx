@@ -21,7 +21,7 @@ const MainLayout = ({ children }) => {
         </Header>
         <Layout>
           <MenuLayout />
-          <Content>{children}</Content>
+          <Content className="mx-auto">{children}</Content>
         </Layout>
         <Footer>
           <footer className="h-[50px] flex justify-center items-center text-center">

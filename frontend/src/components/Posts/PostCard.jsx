@@ -31,7 +31,7 @@ const PostCard = () => {
 
       {isLoading &&
         skeletonItems.current.map((_, idx) => (
-          <Card key={idx} className="my-3 max-w-[1000px] rounded-xl">
+          <Card key={idx} className="my-3 mx-auto max-w-[1000px] rounded-xl">
             <Skeleton loading={isLoading} active>
               <Meta title="Card title" description="This is the description" />
             </Skeleton>
