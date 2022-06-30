@@ -1,9 +1,11 @@
 const asyncHandler = require("express-async-handler");
 
-const { photoData, albumData } = require("../data/data");
+const { photoData, albumData, userData } = require("../data/data");
 
 const getUserData = asyncHandler(async (req, res) => {
   const userInfo = req.userInfo.data;
+
+  const foundUser = userData.find((data) => data.userId === userInfo.userId);
 
   const foundUserData = albumData.find(
     (data) => data.userId === userInfo.userId
@@ -26,7 +28,13 @@ const getUserData = asyncHandler(async (req, res) => {
     });
   });
 
-  res.status(200).json(allAlbums);
+  res.status(200).json({
+    success: true,
+    data: {
+      userInfo: foundUser,
+      albums: allAlbums,
+    },
+  });
 });
 
 module.exports = { getUserData };

@@ -3,6 +3,7 @@ import { createLogger } from "redux-logger";
 
 import authReducer from "./authSlice";
 import getPostAPIReducer from "./getPostSliceAPI";
+import getProfileAPIReducer from "./getProfileSliceAPI";
 
 const logger = createLogger();
 const middleware = [logger];
@@ -13,6 +14,7 @@ const store = configureStore({
   reducer: {
     authAPI: authReducer,
     getPostAPI: getPostAPIReducer,
+    getProfileAPI: getProfileAPIReducer,
   },
 });
 
