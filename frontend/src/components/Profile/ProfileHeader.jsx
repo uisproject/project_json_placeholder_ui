@@ -22,7 +22,8 @@ const ProfileHeader = () => {
         <Card className="my-3 max-w-[1000px] rounded-xl">
           <h1 className="font-bold text-xl">{data?.data?.userInfo?.email}</h1>
           <p>
-            Hi!, my name is {data?.data?.userInfo?.name}. Welcome to my profile
+            Hi!, my name is <strong>{data?.data?.userInfo?.name}</strong>.
+            Welcome to my profile
           </p>
         </Card>
       ) : (
