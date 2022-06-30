@@ -12,9 +12,5 @@ const router = express.Router();
 
 // v2
 router.route("/v2/posts").get(secureAPI, getPosts).post(secureAPI, createPost);
-router
-  .route("/v2/posts/:id")
-  .put(secureAPI, updatePost)
-  .delete(secureAPI, deletePost);
 
 module.exports = router;

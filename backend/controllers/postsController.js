@@ -38,17 +38,19 @@ const getSinglePost = asyncHandler(async (req, res) => {
 
 const createPost = asyncHandler(async (req, res) => {
   const body = req.body;
-  const getLastId = postData.at(-1).id;
+  const { userId, postId } = postData
+    .filter((post) => post.userId === body.userId)
+    .at(-1);
 
-  const newData = {
-    id: getLastId + 1,
-    ...body,
-  };
+  const getUser = userData.find((user) => user.userId === userId);
 
-  postData.push(newData);
+  const newData = { ...body, postId: postId + 1 };
+
+  postData.unshift(newData);
 
   res.status(200).json({
     success: true,
+    userData: getUser,
     data: newData,
   });
 });
