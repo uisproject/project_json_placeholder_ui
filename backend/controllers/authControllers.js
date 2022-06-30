@@ -16,14 +16,18 @@ const authUser = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error("Username or Password is invalid");
   }
+  const user = userData.find((user) => user.username === username);
+  const storedTokenData = {
+    username: username,
+    userId: user.userId,
+  };
 
-  const getRefreshToken = refreshToken(username);
-  storedRefreshToken.push(getRefreshToken);
+  const getRefreshToken = refreshToken(storedTokenData);
 
   return res.status(200).json({
-    userData: userData.find((user) => user.username === username),
+    userData: user,
     tokenType: "Bearer",
-    accessToken: generateToken(username),
+    accessToken: generateToken(storedTokenData),
     refreshToken: getRefreshToken,
   });
 });

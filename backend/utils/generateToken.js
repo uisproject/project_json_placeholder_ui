@@ -1,13 +1,13 @@
 const jwt = require("jsonwebtoken");
 
-const generateToken = (username) => {
-  return jwt.sign({ username }, process.env.JWT_TOKEN, {
+const generateToken = (data) => {
+  return jwt.sign({ data }, process.env.JWT_TOKEN, {
     expiresIn: "24h",
   });
 };
 
-const refreshToken = (username) => {
-  return jwt.sign({ username }, process.env.JWT_REFRESH_TOKEN);
+const refreshToken = (data) => {
+  return jwt.sign({ data }, process.env.JWT_REFRESH_TOKEN);
 };
 
 const parseTokenOnly = (token = "") => {
