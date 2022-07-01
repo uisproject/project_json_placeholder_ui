@@ -3,7 +3,9 @@ import { message } from "antd";
 import { useSelector } from "react-redux";
 import { publicInstance } from "../api/api";
 
-const getUserInfoFromLocalStorage = window.localStorage.getItem("userInfo")
+export const getUserInfoFromLocalStorage = window.localStorage.getItem(
+  "userInfo"
+)
   ? JSON.parse(window.localStorage.getItem("userInfo"))
   : false;
 

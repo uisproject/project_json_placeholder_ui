@@ -25,6 +25,11 @@ export const getPostService = createAsyncThunk(
 const getPostApiSlice = createSlice({
   name: "api/getPost",
   initialState,
+  reducers: {
+    addPost: (state, { payload }) => {
+      state.data = payload;
+    },
+  },
   extraReducers: {
     [getPostService.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
@@ -42,5 +47,7 @@ export const UseSelectGetPosts = () => {
   const state = useSelector((state) => state.getPostAPI);
   return state;
 };
+
+export const { addPost } = getPostApiSlice.actions;
 
 export default getPostApiSlice.reducer;

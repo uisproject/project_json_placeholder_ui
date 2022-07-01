@@ -4,9 +4,9 @@ import CreatePostForm from "./CreatePostForm";
 
 const CreatePost = () => {
   return (
-    <Card className="my-3 min-w-[90%] max-w-[90%] mx-auto rounded-xl">
+    <div className="my-3 bg-white px-5 pt-5 min-w-[90%] max-w-[90%] mx-auto rounded-xl">
       <CreatePostForm />
-    </Card>
+    </div>
   );
 };
 

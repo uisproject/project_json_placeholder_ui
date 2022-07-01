@@ -8,18 +8,22 @@ import {
 } from "../../features/getPostSliceAPI";
 import SinglePostCard from "./SinglePostCard";
 import UseAxiosPrivate from "../../hooks/UseAxiosPrivate";
+import { UseSelectCreatePostAPI } from "../../features/createPostSliceAPI";
 
 const PostCard = () => {
   const dispatch = useDispatch();
   const instance = UseAxiosPrivate();
   const { isLoading, data, isError } = UseSelectGetPosts();
+  // const { createdData } = UseSelectCreatePostAPI();
   const [page, setPage] = useState(1);
   const skeletonItems = useRef(Array.from([1, 2]));
 
   const { Meta } = Card;
 
+  console.log(data);
+
   useEffect(() => {
-    dispatch(getPostService({ instance: instance, limit: 10, page }));
+    dispatch(getPostService({ instance: instance, limit: 10, page: 1 }));
   }, [dispatch, isLoading]);
 
   return (

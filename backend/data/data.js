@@ -27,7 +27,7 @@ const fetchData = async () => {
 
   axios.all([posts, comments, albums, photos, todos, users]).then(
     axios.spread((...response) => {
-      const posts = response[0].data;
+      const posts = response[0].data.reverse();
       const comments = response[1].data;
       const albums = response[2].data;
       const photos = response[3].data;
