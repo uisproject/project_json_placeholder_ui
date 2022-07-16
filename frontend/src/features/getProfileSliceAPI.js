@@ -12,7 +12,7 @@ export const getProfileService = createAsyncThunk(
   async (action, thunkAPI) => {
     const { instance } = action;
     try {
-      const { data } = await instance.get("http://localhost:5000/v2/profile");
+      const { data } = await instance.get("v2/profile");
       return data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.response.data);
