@@ -27,7 +27,7 @@ const ProfileHeader = () => {
           </p>
         </Card>
       ) : (
-        <Card className="my-3 max-w-[1000px] rounded-xl">
+        <Card className="my-3 min-w-[90%] mx-auto inline-block rounded-xl">
           <Skeleton loading={isLoading} active paragraph={{ rows: 1 }} />
         </Card>
       )}
