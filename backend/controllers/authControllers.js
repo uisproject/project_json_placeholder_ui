@@ -24,6 +24,8 @@ const authUser = asyncHandler(async (req, res) => {
 
   const getRefreshToken = refreshToken(storedTokenData);
 
+  storedRefreshToken.push(getRefreshToken);
+
   return res.status(200).json({
     userData: user,
     tokenType: "Bearer",
@@ -34,6 +36,9 @@ const authUser = asyncHandler(async (req, res) => {
 
 const generateNewToken = (req, res) => {
   const { refreshToken } = req.body;
+
+  console.log(storedRefreshToken);
+  // console.log(refreshToken);
 
   // check if stored refresh token is null
   if (storedRefreshToken.length <= 0) {
@@ -48,7 +53,6 @@ const generateNewToken = (req, res) => {
       "You are prohibited to access the content, please re-login"
     );
   }
-
   // verify the token
   jwt.verify(refreshToken, process.env.JWT_REFRESH_TOKEN, (err, user) => {
     // check if something wrong with the token
@@ -58,6 +62,8 @@ const generateNewToken = (req, res) => {
         "You are prohibited to access the content, please re-login"
       );
     }
+
+    console.log("new refresh token is generated");
 
     res.status(200).json({
       username: "admin",
